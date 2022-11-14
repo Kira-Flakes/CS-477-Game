@@ -68,14 +68,6 @@ function init_game()
   map_start=0
   map_end_x=384
   map_end_y=320
-  
---  ----------test----------
---  x1r=0 y1r=0 x2r=0 y2r=0
---  collide_left="no"
---  collide_right="no"
---  collide_up="no"
---  collide_down="no"
---  ------------------------
 
   --set state
   _update = update_game
@@ -123,16 +115,6 @@ function draw_game()
   spr(player.sp,player.x,player.y,2,2,player.flp)
   
   spr(204,0,280,4,4,true)
-  
---  --------test------
---  rect(x1r,y1r,x2r,y2r,7)
---  print("⬅️= "..collide_left,player.x,player.y-10)
---  print("➡️= "..collide_right,player.x,player.y-16)
---  print("⬆️= "..collide_up,player.x,player.y-22)
---  print("⬇️= "..collide_down,player.x,player.y-28)
---  ------------------
-
-
 end
 -->8
 --collide_map--
@@ -168,13 +150,6 @@ function collide_map(obj,aim,flag)
     x1=x+5    y1=y+h
     x2=x+w-6  y2=y+h
   end --endif
-  
-  
---  -----test-----
---  x1r=x1  y1r=y1
---  x2r=x2  y2r=y2
---  --------------
-  
   
   
   --convert pixels to tiles
@@ -251,10 +226,6 @@ function player_update()
         player.dy=0
         player.y-=((player.y+player.h+1)%8)-1
     
---      -------test-------
---      collide_down="yes"
---      else collide_down="no"
---      ------------------
       end
     end
     --check down collision for map
@@ -264,10 +235,6 @@ function player_update()
         player.dy=0
         player.y-=((player.y+player.h+1)%8)-1
     
---      -------test-------
---      collide_down="yes"
---      else collide_down="no"
---      ------------------
     end
   end
   
@@ -275,11 +242,6 @@ function player_update()
     player.jumping=true
     if collide_map(player,"up",0) then
       player.dy=0
-      
---      -------test-------
---      collide_up="yes"
---      else collide_up="no"
---      ------------------
       
     end
   end
@@ -291,15 +253,13 @@ function player_update()
   
     if collide_map(player,"left",0) then
       player.dx=0
---      -------test-------
---      collide_left="yes"
---      else collide_left="no"
---      ------------------
     end
     
     --check collision with exit
     if collide_map(player,"left",7) then
       --switch to win screen
+      player.x=0
+      player.y=0
       init_win()
     end 
   elseif player.dx>0 then
@@ -308,15 +268,13 @@ function player_update()
   
     if collide_map(player,"right",0) then
       player.dx=0
---      -------test-------
---      collide_right="yes"
---      else collide_right="no"
---      ------------------
     end
     
     --check collision with exit
     if collide_map(player,"right",7) then
       --switch to win screen
+      player.x=0
+      player.y=0
       init_win()
     end  
   end
@@ -372,9 +330,7 @@ function limit_speed(num,maximum)
   return mid(-maximum,num,maximum)
 end --end limit_speed
 -->8
-
--->8
---update/draw splash screen--
+--splash screen--
 
 --counts number of frames
 fcount=0
@@ -459,9 +415,10 @@ end --end draw_menu
 
 function draw_win()
   cls()
-  print("congradulations, you",30,60,10)
-  print("escaped!",30,80,10)
-  print("press ❎ to replay",30,90,10)
+  print("congratulations,",35,45,10)
+  print("you escaped!",43,55,10)
+  print("press ❎ to replay",30,80,9)
+  
 end --end draw_win
 
 function draw_lose()
@@ -482,10 +439,10 @@ __gfx__
 00500005500050000888005500005500000005548880000000222099006605000000055488800000088244490000288000000997999990000000099449999000
 00660949974660000000449997000000000000568880000000009999440000000000005688800000088849997997488000000999009990000000099979055000
 00882945994280000000440999000000000000662880000000009904440000000000006628800000000099999999000000005990005500000000009990006600
-00788550055880000005540055000000000000499000000000065900550000000000004990000000000005599055000000005990066000000000000550000600
-00000660066000000555540066000000000000990000000005665900550000000000009900000000000066000660000000066000050000000000000060000500
-00000600006000000000000006000000000006500000000000000000050000000000065000000000000060000600000000050000000000000000000066000000
-00000500005000000000000005000000000006000000000000000000050000000000060000000000000050000500000000000000000000000000000005000000
+00788550055880000005540055000000000000499000000000065900550000000000004990000000000005599055000000005990066000000000000550000500
+00000660066000000555540066000000000000990000000005665900550000000000009900000000000066000660000000066000050000000000000060000000
+00000600006000000000000006000000000006500000000000000000050000000000065000000000000060000600000000050000000000000000000050000000
+00000500005000000000000005000000000006000000000000000000050000000000060000000000000050000500000000000000000000000000000000000000
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
